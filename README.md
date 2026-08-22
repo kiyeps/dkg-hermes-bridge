@@ -56,3 +56,20 @@ npm test
 ## License
 
 Apache-2.0
+
+## Verified example (2026-08-22)
+
+Real audit + recall against the local DKG node (v10.0.13, testnet):
+
+```bash
+hermes-dkg audit '{"actor":"hermes","chain":"solana","actionType":"deposit","params":{"from":"0xA953...","to":"J5ZcFx...","amount":"2","asset":"USDC"},"outcome":"success"}'
+# Audit recorded: hermes-audit-1787396870466 (6 quads, 0 redacted)
+
+hermes-dkg recall 'SELECT ?s ?p ?o WHERE { ?s <http://127.0.0.1:7878/actionType> "deposit" . ?s ?p ?o }'
+# -> 6 quads: actionType=deposit, actor=hermes, chain=solana, outcome=success, ...
+```
+
+The action was recorded as provenance-tagged quads in Working Memory and
+recalled via SPARQL. Note: recall previously failed out-of-the-box because the
+view was sent as `wm` (DKG API rejects it); fixed by mapping shorthand views to
+canonical names (`working-memory` / `shared-working-memory` / `verifiable-memory`).
