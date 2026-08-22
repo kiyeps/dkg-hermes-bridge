@@ -1,0 +1,36 @@
+{
+  "$schema": "./schema/integration.schema.json",
+  "schemaVersion": "1.0.0",
+  "slug": "dkg-hermes-bridge",
+  "name": "Hermes DKG Memory Bridge",
+  "description": "Hermes crypto agent action audit trail + decision recall on DKG V10 memory. Records on-chain actions (swap, bridge, mint, deploy) as provenance-tagged Knowledge Assets in DKG Working/Shared Memory, forming an immutable, queryable audit trail. Enables decision recall via SPARQL queries.",
+  "category": ["agent-memory", "hermes"],
+  "maintainer": {
+    "github": "@kiyeps",
+    "name": "kiyeps",
+    "contact": "https://github.com/kiyeps"
+  },
+  "repo": "https://github.com/kiyeps/dkg-hermes-bridge",
+  "commit": "599da6a592759d6da1d6812aa2c490ea5fd486f8",
+  "license": "Apache-2.0",
+  "requiresDkgNodeVersion": ">=10.0.0",
+  "memoryLayers": ["WM", "SWM"],
+  "v10PrimitivesUsed": ["ContextGraph", "KnowledgeAsset", "SubGraph"],
+  "publicInterfacesUsed": ["http-api"],
+  "targetAgents": ["Hermes", "generic-CLI"],
+  "install": {
+    "kind": "cli",
+    "package": "dkg-hermes-bridge",
+    "version": "0.1.0",
+    "binary": "hermes-dkg",
+    "usageHint": "Run 'hermes-dkg status' to check DKG node status, 'hermes-dkg audit <action-json>' to record a Hermes action to DKG WM."
+  },
+  "security": {
+    "writeAuthority": ["wm/write", "swm/share"],
+    "networkEgress": ["http://127.0.0.1:9200"],
+    "notes": "Hermes security model preserved: no auto-sign, no auto-publish, Spend Governor respected. SWM promotion is explicit via 'promote' subcommand. All secrets redacted before leaving the process. No vm/publish in Round 1 scope."
+  },
+  "trustTier": "community",
+  "promotionPath": "Actions recorded to Working Memory can be promoted to Shared Working Memory via explicit 'promote' command. Repeated references to the same token/action type auto-promote to SWM (sealed). VM publish stays explicit-gated (not in Round 1 scope).",
+  "fitNotes": "Hermes-specific action audit trail, distinct from OpenClaw curator (PR #26) and DKG Memory MCP Server (PR #27). Plugs into Hermes's action dispatch so crypto operations are memory-backed by default, with governance-aware write path that respects Hermes's Spend Governor boundaries."
+}
