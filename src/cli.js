@@ -35,7 +35,7 @@ async function main() {
         console.error('Usage: hermes-dkg recall <sparql-query>');
         process.exit(1);
       }
-      const result = await client.query(sparql, 'wm');
+      const result = await client.query(sparql, 'working-memory');
       console.log(JSON.stringify(result, null, 2));
       break;
     }

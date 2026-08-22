@@ -26,8 +26,15 @@ LIMIT ${limit}
 `.trim();
 }
 
-export async function recallActions(client, filters, view = 'wm') {
+const VIEW_MAP = {
+  wm: 'working-memory',
+  swm: 'shared-working-memory',
+  vm: 'verifiable-memory',
+};
+
+export async function recallActions(client, filters, view = 'working-memory') {
   const sparql = buildRecallQuery(filters);
-  const result = await client.query(sparql, view);
+  const resolvedView = VIEW_MAP[view] || view;
+  const result = await client.query(sparql, resolvedView);
   return result.results?.bindings || [];
 }
