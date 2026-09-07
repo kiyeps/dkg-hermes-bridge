@@ -1,0 +1,39 @@
+$ hermes-dkg status
+{
+  "name": "**IRONCLAW** 🔥  ·  codename **Superagent V7**",
+  "version": "10.0.15",
+  "commit": "244f6943fe7a909a23fe3671c9da088de942f8ed",
+  "commitShort": "244f6943",
+  "buildTime": "2026-09-04T17:07:34.466Z",
+  "distTag": "latest",
+  "installMode": "npm-local",
+
+$ hermes-dkg audit '{"actor":"0xebDc...395A","chain":"base-sepolia","actionType":"demo.swap","params":{"from":"ETH","to":"WETH","amount":"0.01"},"outcome":"success"}'
+Audit recorded: hermes-audit-1788812918142 (6 quads, 0 redacted)
+
+$ hermes-dkg recall 'SELECT ?p ?o WHERE { ?s <http://127.0.0.1:7878/actionType> "demo.swap" . ?s ?p ?o . }'
+{
+  "result": {
+    "type": "bindings",
+    "bindings": [
+      {
+        "p": "http://127.0.0.1:7878/timestamp",
+        "o": "\"1788812896357\""
+      },
+      {
+        "p": "http://127.0.0.1:7878/actionType",
+        "o": "\"demo.swap\""
+      },
+      {
+        "p": "http://127.0.0.1:7878/actor",
+        "o": "\"0xebDc3D25487E5B28bbd5eD4d5cF59A9c7c46395A\""
+      },
+      {
+        "p": "http://127.0.0.1:7878/outcome",
+        "o": "\"success\""
+      },
+      {
+        "p": "http://127.0.0.1:7878/chain",
+        "o": "\"base-sepolia\""
+      },
+      {

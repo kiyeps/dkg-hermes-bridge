@@ -1,6 +1,6 @@
 {
   "name": "dkg-hermes-bridge",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Hermes crypto agent action audit trail + decision recall on DKG V10 memory",
   "type": "module",
   "bin": {
