@@ -8,15 +8,33 @@ const HERMES_NS = 'urn:dkg:hermes:';
 // We use full IRIs so SPARQL queries match what's stored.
 const PRED_NS = 'http://127.0.0.1:7878/';
 
+// Deterministic canonical serialization for structured params.
+// Recursively sorts object keys and encodes scalars unambiguously so that
+// distinct param structures always produce distinct hashes.
+function canonicalize(value) {
+  if (value === null || typeof value !== 'object') {
+    // Tag scalars by type to avoid cross-type collisions ("1" vs 1 vs true).
+    if (typeof value === 'string') return `s:${JSON.stringify(value)}`;
+    if (typeof value === 'number') return `n:${JSON.stringify(value)}`;
+    if (typeof value === 'boolean') return `b:${value}`;
+    return `z:${String(value)}`;
+  }
+  if (Array.isArray(value)) {
+    return `[${value.map(canonicalize).join(',')}]`;
+  }
+  const keys = Object.keys(value).sort();
+  const parts = keys.map(k => `${JSON.stringify(k)}:${canonicalize(value[k])}`);
+  return '{' + parts.join(',') + '}';
+}
+
 function paramsHash(params) {
-  const sorted = Object.keys(params).sort().map(k => `${k}=${params[k]}`).join('&');
-  return createHash('sha256').update(sorted).digest('hex').slice(0, 16);
+  return createHash('sha256').update(canonicalize(params ?? {})).digest('hex').slice(0, 16);
 }
 
 function escapeLiteral(value) {
-  // SPARQL literals must be double-quoted
+  // SPARQL literals must be double-quoted; escape backslash first, then quote.
   if (typeof value === 'string') {
-    return `"${value.replace(/"/g, '\\"')}"`;
+    return `"${value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
   }
   return `"${value}"`;
 }

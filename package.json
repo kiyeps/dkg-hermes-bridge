@@ -1,6 +1,6 @@
 {
   "name": "dkg-hermes-bridge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Hermes crypto agent action audit trail + decision recall on DKG V10 memory",
   "type": "module",
   "bin": {
@@ -9,7 +9,13 @@
   "scripts": {
     "test": "node --test test/*.test.js"
   },
-  "keywords": ["dkg", "hermes", "agent-memory", "web3", "audit-trail"],
+  "keywords": [
+    "dkg",
+    "hermes",
+    "agent-memory",
+    "web3",
+    "audit-trail"
+  ],
   "author": "kiyeps",
   "license": "Apache-2.0"
 }
