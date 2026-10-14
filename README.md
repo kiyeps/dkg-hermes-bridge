@@ -59,7 +59,7 @@ Apache-2.0
 
 ## Verified example (2026-08-22)
 
-Real audit + recall against the local DKG node (v10.0.13, testnet):
+Real audit + recall against the local DKG node (v10.0.19, testnet):
 
 ```bash
 hermes-dkg audit '{"actor":"hermes","chain":"solana","actionType":"deposit","params":{"from":"0xA953...","to":"J5ZcFx...","amount":"2","asset":"USDC"},"outcome":"success"}'

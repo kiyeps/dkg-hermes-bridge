@@ -9,7 +9,7 @@ The Hermes DKG Memory Bridge gives the Hermes crypto agent a DKG V10 memory laye
 ## Integration points
 
 - **Hermes crypto agent**: `~/.openclaw/workspace/skills/hermes/`
-- **DKG node**: `http://127.0.0.1:9200` (v10.0.13, testnet Base Sepolia)
+- **DKG node**: `http://127.0.0.1:9200` (v10.0.19, testnet Base Sepolia)
 - **Auth token**: `~/.dkg/auth.token` (line 2, after `#` comment line)
 - **Context graph**: `openclaw-curator`
 
@@ -27,7 +27,7 @@ The Hermes DKG Memory Bridge gives the Hermes crypto agent a DKG V10 memory laye
 - **OpenClaw Memory Curator** (PR #26): OpenClaw-specific memory-file curator daemon
 - **DKG Memory MCP Server** (PR #27): transport-agnostic MCP tooling layer
 
-This is Hermes-agent-specific: it plugs into Hermes's action dispatch so crypto operations are memory-backed by default, with a governance-aware write path.
+This is Hermes-agent-specific: designed as a post-execution recorder invoked by an action dispatcher, so executed actions gain an auditable, recallable trail (governance-aware: no signing, no publishing).
 
 ## Security model
 

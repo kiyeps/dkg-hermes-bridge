@@ -11,25 +11,28 @@ Third submission to the DKG v10 Call for Integrations (Round 1: Working +
 Shared Memory). Substantively distinct from:
 - OpenClaw Memory Curator (PR #26): OpenClaw-specific memory-file curator daemon
 - DKG Memory MCP Server (PR #27): transport-agnostic MCP tooling layer
+- @origintrail-official/dkg-adapter-hermes (first-party): general Hermes
+  chat-memory provider; this bridge is the narrower action-audit recorder
 
-This one is Hermes-agent-specific: it plugs into Hermes's action dispatch so
-crypto operations are memory-backed by default, with a governance-aware write
-path (respects Hermes's Spend Governor boundaries — never auto-signs, never
-auto-publishes).
+This one is Hermes-agent-specific: designed as a post-execution recorder: an
+action dispatcher invokes `hermes-dkg audit` after each executed action, so
+crypto operations gain an auditable, recallable memory trail. The bridge itself never signs and never
+publishes - it writes only what it is given, after redaction.
 
 ## What it does
 
-1. **Action audit trail** — wrap Hermes tool dispatch (swap/bridge/mint/deploy)
-   so each executed action writes a provenance KA to DKG WM: actor, chain,
+1. **Action audit trail** — each executed action (swap/bridge/mint/deploy) is
+   recorded via `hermes-dkg audit` as a provenance KA in DKG WM: actor, chain,
    action type, params hash, outcome, timestamp.
 2. **Decision recall** — Hermes can SPARQL-query prior actions from DKG WM/SWM
    before proposing a trade (e.g. "what did I pay in gas on Base last week?").
-3. **Maturity promotion** — actions referenced repeatedly (e.g. same token
-   traded N times) auto-promote to SWM (sealed). VM publish stays explicit-gated.
+3. **Promotion (explicit only)** — `hermes-dkg promote <ka>` shares an action
+   record to SWM (sealed, publish-ready). There is no automatic promotion and no
+   daemon; VM publish is not implemented in this round.
 
-## Runtime facts (verified 2026-08-22)
+## Runtime facts (live local node, Base Sepolia testnet)
 
-- DKG daemon: http://127.0.0.1:9200 (v10.0.13, testnet Base Sepolia)
+- DKG daemon: http://127.0.0.1:9200 (v10.0.19, testnet Base Sepolia)
 - Auth token: line 2 of ~/.dkg/auth.token (line 1 is a comment — strip `#` lines)
 - Default context graph: openclaw-curator
 - Quads format: JSON array of {subject, predicate, object} — NO per-quad graph field
