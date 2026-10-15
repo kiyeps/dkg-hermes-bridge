@@ -1,14 +1,26 @@
 DKG V10 Round-1 submission: dkg-hermes-bridge
-Live demo transcript, recorded 2026-10-15 (Asia/Jakarta) against a live local DKG V10 node.
+Recorded walkthrough transcript, generated 2026-10-15 13:11 WIB
+
+This file is the exact terminal output of the recorded run shipped in
+docs/demo.gif (raw recording: docs/demo.cast, asciinema v2 format).
+One run produced all three artefacts: the GIF, the cast and this transcript.
 
 Environment
-  node:     IRONCLAW (codename Superagent V7) v10.0.19 - DKG V10 Base Testnet, context graph openclaw-curator
-  revision: 676633ada32d8bf66a4953c98263c7890287e048
-  The commit that adds this transcript also carries one small fix: the CLI version banner now reads the
-  version from package.json instead of a hard-coded string.
-All output below is verbatim terminal output from this session.
+  node: IRONCLAW v10.0.19 (edge node, DKG V10 Base Testnet / Base Sepolia)
+  node endpoint: http://127.0.0.1:9200 (auth token: ~/.dkg/auth.token, line 2)
+  context graph: openclaw-curator
+  demo input: inline action JSON (one KA per recorded action)
+  recorded: 2026-10-15 13:11 WIB
 
-$ node src/cli.js
+Command output
+
+[?2004h$ cd /home/chovy/dkg-hermes-bridge
+[?2004l
+[?2004h$ echo "=== dkg-hermes-bridge live walkthrough vs DKG V10 node ==="
+[?2004l
+=== dkg-hermes-bridge live walkthrough vs DKG V10 node ===
+[?2004h$ node src/cli.js
+[?2004l
 Hermes DKG Memory Bridge v0.1.2
 
 Usage:
@@ -18,7 +30,11 @@ Usage:
   hermes-dkg promote <ka-name>         Promote KA to SWM (entities:"all")
   hermes-dkg daemon                    (not yet implemented)
 
-$ node src/cli.js status
+Example:
+  hermes-dkg audit '{"actor":"hermes","chain":"base","actionType":"swap","params":{"from":"ETH","to":"USDC"},"outcome":"success"}'
+
+[?2004h$ node src/cli.js status
+[?2004l
 {
   "name": "**IRONCLAW** 🔥  ·  codename **Superagent V7**",
   "version": "10.0.19",
@@ -33,29 +49,2052 @@ $ node src/cli.js status
   "networkId": "7449c543ff04a550b2dafa999fe8ee577a00b212023bb4d4244e8d58a4792c7b",
   "networkName": "DKG V10 Base Testnet",
   "storeBackend": "oxigraph-server",
-  ...
-
-1) Record an action into Working Memory
-$ node src/cli.js audit '{"actor":"hermes","chain":"base","actionType":"swap","params":{"amount":"100","token":"USDC"},"outcome":"success"}'
-Audit recorded: hermes-audit-1792039686186 (6 quads, 0 redacted)
-
-2) Security boundary, layer 1 - parameters are hashed, never stored raw
-$ node src/cli.js audit '{"actor":"hermes","chain":"base","actionType":"swap","params":{"apiKey":"sk-DEMO-PARAMS-001","amount":"100"},"outcome":"success"}'
-Audit recorded: hermes-audit-1792039687310 (6 quads, 0 redacted)
-$ node src/cli.js recall 'SELECT ?s ?p ?o WHERE { ?s ?p ?o . FILTER(CONTAINS(STR(?o), "sk-DEMO-PARAMS-001")) } LIMIT 3'
+  "storeUrl": "http://127.0.0.1:7878/query",
+  "storeQuads": null,
+  "storeQuadsStatus": "not-requested",
+  "storeQuadsAgeMs": null,
+  "storeQuadsRefreshing": false,
+  "uptimeMs": 90903547,
+  "admission": {
+    "inFlight": 0,
+    "max": 64,
+    "rejectedTotal": 0
+  },
+  "eventLoopDelay": {
+    "p50Ms": 0.3,
+    "p99Ms": 1.4,
+    "maxMs": 823.1,
+    "windowMs": 60000
+  },
+  "backpressure": {
+    "state": "healthy",
+    "schedulers": [
+      {
+        "scheduler": "store",
+        "state": "healthy"
+      },
+      {
+        "scheduler": "sync-global",
+        "state": "healthy"
+      }
+    ],
+    "diagnosticsAvailable": "/api/diagnostics/backpressure"
+  },
+  "syncLifecycle": {
+    "syncReconcilerEnabled": true,
+    "vmReconcilerEnabled": true
+  },
+  "vmPromotion": {
+    "vmReconcilerEnabled": true,
+    "vmReconcileActive": true,
+    "unavailableReason": null,
+    "runtimeReady": true,
+    "storageAckGate": "not-core",
+    "storageAckHandler": "not-core",
+    "coreHostedGraphs": 0,
+    "storageAckDeclinesLastHour": {},
+    "audit": {
+      "lastRunAt": null,
+      "lastDurationMs": null,
+      "lastError": null,
+      "ledgerReady": false,
+      "namespacesWithAckCopies": 0,
+      "discoveryWrapped": false,
+      "backfilledGraphs": 0,
+      "backfillPending": 0,
+      "unresolvedGraphs": 0,
+      "auditedCopies": 0,
+      "staleUnpromotedCopies": 0,
+      "stalledOnChain": 0,
+      "notRegisteredOnChain": 0,
+      "expiredUnregisteredCopies": 0,
+      "supersededCopies": 0,
+      "retriesTriggered": 0,
+      "promotedByAudit": 0
+    }
+  },
+  "connectedPeers": 4,
+  "connections": {
+    "total": 4,
+    "direct": 4,
+    "relayed": 0
+  },
+  "relayConnected": true,
+  "multiaddrs": [
+    "/ip4/127.0.0.1/tcp/45725/p2p/12D3KooWJzDfRBcUmtAoMHJzkzJ7GVd64KR32sxnyoiE5UxgPeQP",
+    "/ip4/10.255.255.254/tcp/45725/p2p/12D3KooWJzDfRBcUmtAoMHJzkzJ7GVd64KR32sxnyoiE5UxgPeQP",
+    "/ip4/192.168.1.3/tcp/45725/p2p/12D3KooWJzDfRBcUmtAoMHJzkzJ7GVd64KR32sxnyoiE5UxgPeQP",
+    "/ip4/100.91.221.111/tcp/45725/p2p/12D3KooWJzDfRBcUmtAoMHJzkzJ7GVd64KR32sxnyoiE5UxgPeQP",
+    "/ip4/49.12.4.64/tcp/9090/p2p/12D3KooWJqhnnfouiNRUyJBEREpuKtV4A448LUbS6JiVCe8Q82bZ/p2p-circuit/p2p/12D3KooWJzDfRBcUmtAoMHJzkzJ7GVd64KR32sxnyoiE5UxgPeQP",
+    "/ip4/178.156.252.147/tcp/9090/p2p/12D3KooWPyTpqBBtU1AvzSsd5rWXCQzFcGtG44qDmeYenWcpzsge/p2p-circuit/p2p/12D3KooWJzDfRBcUmtAoMHJzkzJ7GVd64KR32sxnyoiE5UxgPeQP",
+    "/ip4/178.104.54.178/tcp/9090/p2p/12D3KooWSmU3owJvB9sFw8uApDgKrv2VBMecsGGvgAc4Gq6hB57M/p2p-circuit/p2p/12D3KooWJzDfRBcUmtAoMHJzkzJ7GVd64KR32sxnyoiE5UxgPeQP"
+  ],
+  "relay": {
+    "isCore": false,
+    "reservationsHeld": 0,
+    "reservationCapacity": null,
+    "activeCircuits": null,
+    "bytesIn": null,
+    "bytesOut": null,
+    "natStatus": "unknown",
+    "advertisedAddresses": [
+      "/ip4/127.0.0.1/tcp/45725/p2p/12D3KooWJzDfRBcUmtAoMHJzkzJ7GVd64KR32sxnyoiE5UxgPeQP",
+      "/ip4/10.255.255.254/tcp/45725/p2p/12D3KooWJzDfRBcUmtAoMHJzkzJ7GVd64KR32sxnyoiE5UxgPeQP",
+      "/ip4/192.168.1.3/tcp/45725/p2p/12D3KooWJzDfRBcUmtAoMHJzkzJ7GVd64KR32sxnyoiE5UxgPeQP",
+      "/ip4/100.91.221.111/tcp/45725/p2p/12D3KooWJzDfRBcUmtAoMHJzkzJ7GVd64KR32sxnyoiE5UxgPeQP",
+      "/ip4/49.12.4.64/tcp/9090/p2p/12D3KooWJqhnnfouiNRUyJBEREpuKtV4A448LUbS6JiVCe8Q82bZ/p2p-circuit/p2p/12D3KooWJzDfRBcUmtAoMHJzkzJ7GVd64KR32sxnyoiE5UxgPeQP",
+      "/ip4/178.156.252.147/tcp/9090/p2p/12D3KooWPyTpqBBtU1AvzSsd5rWXCQzFcGtG44qDmeYenWcpzsge/p2p-circuit/p2p/12D3KooWJzDfRBcUmtAoMHJzkzJ7GVd64KR32sxnyoiE5UxgPeQP",
+      "/ip4/178.104.54.178/tcp/9090/p2p/12D3KooWSmU3owJvB9sFw8uApDgKrv2VBMecsGGvgAc4Gq6hB57M/p2p-circuit/p2p/12D3KooWJzDfRBcUmtAoMHJzkzJ7GVd64KR32sxnyoiE5UxgPeQP"
+    ],
+    "configuredAnnounceAddresses": []
+  },
+  "blockExplorerUrl": "https://sepolia.basescan.org",
+  "identityId": "0",
+  "hasIdentity": false,
+  "asyncPublisher": {
+    "available": false,
+    "reason": "publisher_disabled",
+    "retryable": false,
+    "operatorActionRequired": true
+  },
+  "finalizationRecovery": {
+    "available": true,
+    "closed": false,
+    "ready": true,
+    "stateCounts": {},
+    "livePayloadBytes": 0,
+    "dueEntries": 0,
+    "deferredEntries": 0,
+    "deferredPayloadBytes": 0,
+    "canonicalReceiptCapability": "supported"
+  },
+  "rfc64PublicCatalog": {
+    "enabled": false,
+    "selectedContextGraphs": [],
+    "runtimeSelection": {
+      "subscriptionDriven": true,
+      "selectedContextGraphs": []
+    },
+    "rollout": {
+      "killSwitch": false,
+      "contextGraphModes": {}
+    },
+    "autoPublishEnabled": false,
+    "completeSwmProviders": [],
+    "service": {
+      "started": true,
+      "acceptedPolicies": 36,
+      "receiver": {
+        "scheduled": 0,
+        "dedupedInFlight": 0,
+        "dedupedAlreadyApplied": 0,
+        "applied": 0,
+        "stagedOnly": 0,
+        "notFound": 0,
+        "failed": 0,
+        "droppedQueueFull": 0,
+        "droppedProviders": 0,
+        "supersededQueued": 0,
+        "preemptedActive": 0,
+        "admissionDeferred": 0,
+        "deferred": 0,
+        "inFlight": 0,
+        "queued": 0,
+        "providerAttempts": 0,
+        "providerSwitches": 0,
+        "providerSuccesses": 0,
+        "providerBackoffMs": 0
+      },
+      "nativeReceiver": {
+        "controlObjectCacheHits": 0,
+        "controlObjectNetworkFetches": 0,
+        "kaBundleCacheHits": 0,
+        "kaBundleNetworkFetches": 0,
+        "kaBundleCacheBytes": 0,
+        "kaBundleNetworkBytes": 0
+      },
+      "announcedCurrentHeadPendingScopes": 0,
+      "announcedCurrentHeadRetryArmed": false,
+      "announcedHeadsAlreadySatisfied": 0
+    },
+    "bootstrap": null
+  },
+  "rfc64Catalog": {
+    "enabled": true,
+    "selectedContextGraphs": [],
+    "selectedPublicContextGraphs": [],
+    "selectedPrivateContextGraphs": [],
+    "runtimeSelection": {
+      "subscriptionDriven": true,
+      "eligibleContextGraphs": [
+        "audit-private-1789017180",
+        "audit-public-1789017180",
+        "fx-priv-1789021427",
+        "fx-priv-1789592961",
+        "fx-priv-1789593606",
+        "fx-priv-1789623977",
+        "fx-priv-1789624129",
+        "fx-priv-1789624131",
+        "fx-priv-1789624135",
+        "fx-priv-1789624137",
+        "fx-priv-1789624139",
+        "fx-priv-1789624294",
+        "fx-priv-1789624296",
+        "fx-priv-1789624298",
+        "fx-priv-1789624300",
+        "fx-priv-1789624303",
+        "fx-priv2-1789021547",
+        "fxp-1789593024",
+        "g2probe-1789596062",
+        "g5-priv-ebuxbtso",
+        "g5b-priv-nlk21efd",
+        "g6-7rp2qshx",
+        "g6-mvdbpilw",
+        "g6-ooofivk6",
+        "g6-qolpgs5m",
+        "gate2-priv-r1-97sbp4",
+        "gate2-priv-r1-vgab3u",
+        "gate2-priv-r2-1vrzzb",
+        "gate2-priv-r2-dh635m",
+        "gate2-priv-r3-a290sb",
+        "gate2-priv-r3-e2gdxw",
+        "gate2-priv-r4-h34l4q",
+        "gate2-priv-r5-fisyl0",
+        "gpriv-1789593757",
+        "openclaw-curator",
+        "poc-priv-1789594999"
+      ],
+      "selectedContextGraphs": [
+        "audit-private-1789017180",
+        "audit-public-1789017180",
+        "fx-priv-1789021427",
+        "fx-priv-1789592961",
+        "fx-priv-1789593606",
+        "fx-priv-1789623977",
+        "fx-priv-1789624129",
+        "fx-priv-1789624131",
+        "fx-priv-1789624135",
+        "fx-priv-1789624137",
+        "fx-priv-1789624139",
+        "fx-priv-1789624294",
+        "fx-priv-1789624296",
+        "fx-priv-1789624298",
+        "fx-priv-1789624300",
+        "fx-priv-1789624303",
+        "fx-priv2-1789021547",
+        "fxp-1789593024",
+        "g2probe-1789596062",
+        "g5-priv-ebuxbtso",
+        "g5b-priv-nlk21efd",
+        "g6-7rp2qshx",
+        "g6-mvdbpilw",
+        "g6-ooofivk6",
+        "g6-qolpgs5m",
+        "gate2-priv-r1-97sbp4",
+        "gate2-priv-r1-vgab3u",
+        "gate2-priv-r2-1vrzzb",
+        "gate2-priv-r2-dh635m",
+        "gate2-priv-r3-a290sb",
+        "gate2-priv-r3-e2gdxw",
+        "gate2-priv-r4-h34l4q",
+        "gate2-priv-r5-fisyl0",
+        "gpriv-1789593757",
+        "openclaw-curator",
+        "poc-priv-1789594999"
+      ]
+    },
+    "responsibilities": [
+      {
+        "contextGraphId": "audit-private-1789017180",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "audit-public-1789017180",
+        "responsible": true,
+        "responsibilityReason": "edge-subscription",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "fx-priv-1789021427",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "fx-priv-1789592961",
+        "responsible": true,
+        "responsibilityReason": "edge-subscription",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "fx-priv-1789593606",
+        "responsible": true,
+        "responsibilityReason": "edge-subscription",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "fx-priv-1789623977",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "fx-priv-1789624129",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "fx-priv-1789624131",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "fx-priv-1789624135",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "fx-priv-1789624137",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "fx-priv-1789624139",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "fx-priv-1789624294",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "fx-priv-1789624296",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "fx-priv-1789624298",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "fx-priv-1789624300",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "fx-priv-1789624303",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "fx-priv2-1789021547",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "fxp-1789593024",
+        "responsible": true,
+        "responsibilityReason": "edge-subscription",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "g2probe-1789596062",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "g5-priv-ebuxbtso",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "g5b-priv-nlk21efd",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "g6-7rp2qshx",
+        "responsible": true,
+        "responsibilityReason": "edge-subscription",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "g6-mvdbpilw",
+        "responsible": true,
+        "responsibilityReason": "edge-subscription",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "g6-ooofivk6",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "g6-qolpgs5m",
+        "responsible": true,
+        "responsibilityReason": "edge-subscription",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "gate2-priv-r1-97sbp4",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "gate2-priv-r1-vgab3u",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "gate2-priv-r2-1vrzzb",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "gate2-priv-r2-dh635m",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "gate2-priv-r3-a290sb",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "gate2-priv-r3-e2gdxw",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "gate2-priv-r4-h34l4q",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "gate2-priv-r5-fisyl0",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "gpriv-1789593757",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "openclaw-curator",
+        "responsible": true,
+        "responsibilityReason": "edge-subscription",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      },
+      {
+        "contextGraphId": "poc-priv-1789594999",
+        "responsible": true,
+        "responsibilityReason": "private-membership",
+        "active": true,
+        "mode": "catalog",
+        "selectionSource": "default"
+      }
+    ],
+    "authorityRpcCircuit": {
+      "state": "closed",
+      "consecutiveExhaustions": 0,
+      "retryAtMs": null
+    },
+    "contextGraphs": [
+      {
+        "contextGraphId": "audit-private-1789017180",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "complete",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0xad10b4e3718abb39d843e194d38d234246dcc3228db72fd47dfb038fdfcea6c0",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": "0x32c25ea9f937dc8425df59bf639505a668e7513840b3aacd71d373d15ff99d50",
+        "appliedCatalogHeadDigest": "0x32c25ea9f937dc8425df59bf639505a668e7513840b3aacd71d373d15ff99d50",
+        "expectedInventoryDigest": "0xdec801982b05b18f034136f0dc0e908ac970dc015562b7c49ef704956350f938",
+        "appliedInventoryDigest": "0xdec801982b05b18f034136f0dc0e908ac970dc015562b7c49ef704956350f938",
+        "expectedRowCount": "3",
+        "appliedRowCount": "3",
+        "missingRowCount": "0",
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": "3",
+        "authorHeadCount": 1,
+        "lastSuccessfulAdvanceAt": "1789018324994",
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "audit-public-1789017180",
+        "responsibilityReason": "edge-subscription",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 0,
+        "publishPolicy": 1,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x8c67d3e0fdd890d20729c2c572ff43e2f697b817570995f1432d4d32810548db",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 4,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "fx-priv-1789021427",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0xe9a6c4a33f6061af0be680e1f60e883ccb956c6a35a8db6d33d92afe2382e435",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "fx-priv-1789592961",
+        "responsibilityReason": "edge-subscription",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 0,
+        "publishPolicy": 1,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x88ceea968e48e203aa173980885e9d6f9454fb2dbbe3553dc645be1d243a0726",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 4,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "fx-priv-1789593606",
+        "responsibilityReason": "edge-subscription",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 0,
+        "publishPolicy": 1,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x05ed9b33b998c319ceea53b0944e9a7f9a7bbb6203ed8d51f9239f54d128197a",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 4,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "fx-priv-1789623977",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x04491deb51eaad46895c0787cd51137f6a7bb4ba9328311c2a52fb21f9d024a7",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "fx-priv-1789624129",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x44bf0ae91c907de02a40166efa14a7cbbf783b2d68afa4555ea1b979055f37a7",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "fx-priv-1789624131",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x1885da9c0d8e7d27ccaf7e51eaba8627bdb04c4d448b4525fb5f7c7a32e8cc2f",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "fx-priv-1789624135",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x9d108d260e26b1028e9931d3de08ea905cd74777d28951cd0e2fde96b4629800",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "fx-priv-1789624137",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x4826b8d65878f0407cb7a23a93f5032b8333ec6be4bae92094ef8c38325fbf09",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "fx-priv-1789624139",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x336996353a9a6bf8b9bc799af9b0a5b036bfc03f3de6828d99e3a5aefe40a697",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "fx-priv-1789624294",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x357304f51722d8f7c8f135e1fa95bfabeffad98096a99a0d7e94acd32caba1f8",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "fx-priv-1789624296",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x856163c2da0d222eedd45a47a8b8adf2f38ff4b048485aaf3c2fe2e13bed16d3",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "fx-priv-1789624298",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x1cff0ba4256598985fadf82eebc72852c108e2ac513a112b7111795c6dbd0ea9",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "fx-priv-1789624300",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x4a0826ff5544b95d9d2476136b931c980f1be16a220393fa23dc193ee42baf89",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "fx-priv-1789624303",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x533a16255391e63afe673125e2e5436f5df0ea2b7ca2a03a96209708e5c4bb30",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "fx-priv2-1789021547",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x2ba237a117629df0e7aa3e43deb7a273cfefce94d232f1c71a68df287ef8827e",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "fxp-1789593024",
+        "responsibilityReason": "edge-subscription",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 0,
+        "publishPolicy": 1,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x5bbf7f5a82ae4bd8447e2058618b8710e1fb93df2358f2ac61a355e66bb02725",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 4,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "g2probe-1789596062",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x2b1fe1b9748b88f7d49c815f90f920166331e2b38cb2de812b7e09166027c326",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "g5-priv-ebuxbtso",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x2db6ba1a714f21a361cc0974ef5bb07bd561caeb5c5ce128b9fcac0e5e4491ad",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "g5b-priv-nlk21efd",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0xa9c09aa5dca49fea911a95e6874f2875a03a737db7843e88ae6dd381a8990503",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "g6-7rp2qshx",
+        "responsibilityReason": "edge-subscription",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 0,
+        "publishPolicy": 1,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x8ea288436a9cb5d5708f8522f0c487ba36cc8e0e4acec82a71d16d8e5160421e",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 4,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "g6-mvdbpilw",
+        "responsibilityReason": "edge-subscription",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 0,
+        "publishPolicy": 1,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0xc983577ef874b0252f0eeaaf7c95b773c1620507b150fad022ba10cdc1a71fe3",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 4,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "g6-ooofivk6",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x6683e5005e17102b60994fed71acee45a403277f386040d43b8d8012dae7a7d9",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "g6-qolpgs5m",
+        "responsibilityReason": "edge-subscription",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 0,
+        "publishPolicy": 1,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x2ffc34ba118dddd3e43ba01f2cfd4c8a466a17d12c76ec9cd17bb0e22d5f6f12",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 4,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "gate2-priv-r1-97sbp4",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x0fb6be2728f8680cf42f85791b6c9f68304a2e00ea9e28a9e9b2c7e61cc136dd",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "gate2-priv-r1-vgab3u",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0xa5e75a7c3292bf17b9b0dc7aa86e7a897d3e6fe141beea2b7e7b7be852adfa8f",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "gate2-priv-r2-1vrzzb",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0xa56626aee513d052928342b45ba75406d49696ae8a9bea41347cebe54a6752d3",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "gate2-priv-r2-dh635m",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x4f5e352c04817fbe6aebb8749948a51e9f26efd1341755ca69fdd40ddd24d8d4",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "gate2-priv-r3-a290sb",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x94587451da694ab619016b21bda027d00491e78bd05ddca2c665a72382ee2751",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "gate2-priv-r3-e2gdxw",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0xc1b2797ffa729ae6d40661027784620d2a157e9c52ceff819bd68a1edc24204a",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "gate2-priv-r4-h34l4q",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x3dcd21f3a619b9a7064fb1236c119045c42c23743874c6a20e9d78d146294e16",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "gate2-priv-r5-fisyl0",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x18e26c65ebbfdd38b28fd718d1c6c3544e4b7cb37edc5030875d5450a036d78c",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "gpriv-1789593757",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x32e36e48814fc73cb51d2429aa77bc2cecc551f810d1dd1c7b672991782ec18b",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      },
+      {
+        "contextGraphId": "openclaw-curator",
+        "responsibilityReason": "edge-subscription",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 0,
+        "publishPolicy": 1,
+        "legacySyncAllowed": false,
+        "phase": "known-incomplete",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x59c6e4fd13472539cf94707dad04762ce4234cc022229f692fa9970f7d4a79e5",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": "0xd7c0f7d2ebbf2544ea0e62cee226519eccd25917c1e7db601e4c02652075814b",
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": "0xa167cc4c39f88306950e70f4541304328e021cac2186a83754cdc5f2da339594",
+        "expectedRowCount": null,
+        "appliedRowCount": "24",
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 11,
+        "catalogVersion": "24",
+        "authorHeadCount": 1,
+        "lastSuccessfulAdvanceAt": "1792044455137",
+        "providerHealth": {
+          "candidateCount": null,
+          "unresolvedReplayPeers": 4,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": "legacy-read-only-boundary"
+      },
+      {
+        "contextGraphId": "poc-priv-1789594999",
+        "responsibilityReason": "private-membership",
+        "selectionSource": "default",
+        "effectiveMode": "catalog",
+        "accessPolicy": 1,
+        "publishPolicy": 0,
+        "legacySyncAllowed": false,
+        "phase": "bootstrapping",
+        "authorityState": "accepted",
+        "policySource": "owner-signed-unregistered",
+        "policyDigest": "0x8d9ad2985ea2953a1760b05d4073ebec7a9de90d2e87db85f203af7568d36f97",
+        "authorityEra": "0",
+        "authorityFreshness": "current",
+        "catalogServiceStarted": true,
+        "expectedCatalogHeadDigest": null,
+        "appliedCatalogHeadDigest": null,
+        "expectedInventoryDigest": null,
+        "appliedInventoryDigest": null,
+        "expectedRowCount": null,
+        "appliedRowCount": null,
+        "missingRowCount": null,
+        "legacyReadOnlyCount": 0,
+        "catalogVersion": null,
+        "authorHeadCount": 0,
+        "lastSuccessfulAdvanceAt": null,
+        "providerHealth": {
+          "candidateCount": 0,
+          "unresolvedReplayPeers": 0,
+          "attempts": 0,
+          "switches": 0,
+          "successes": 0,
+          "backoffMs": 0
+        },
+        "stableReason": null
+      }
+    ],
+    "shadowExecution": null,
+    "configuration": {
+      "schemaVersion": 1,
+      "source": "default-omitted",
+      "catalogControlPresent": false,
+      "deprecatedPublicControlPresent": false,
+      "activationManifestPresent": false,
+      "deprecatedDisabledOverride": false,
+      "killSwitch": false,
+      "defaultMode": "catalog",
+      "legacyOverrideCount": 0,
+      "shadowOverrideCount": 0,
+      "digest": "sha256:9903e5cdd2396e507d5ec7b4a6117583d76dceeb0bb6c412c1311034aadc6f87"
+    },
+    "autoPublishEnabled": false,
+    "rollout": {
+      "killSwitch": false,
+      "defaultMode": "catalog",
+      "contextGraphModes": {}
+    },
+    "privateAuthorityConfigured": false,
+    "privateRecovery": [],
+    "resourceTelemetry": null
+  },
+  "rfc64SelectedPublicSync": {
+    "defaultEnabled": true,
+    "requestedContextGraphs": [],
+    "requestedContextGraphCount": 0,
+    "catalogBackedContextGraphs": []
+  },
+  "contextGraphIdentity": {
+    "nameHashOnly": 0
+  },
+  "hasOpenClawChannel": true,
+  "localAgentIntegrations": [
+    {
+      "id": "local-llm",
+      "name": "DKG Local LLM",
+      "description": "Chat with a local llama.cpp or Ollama model through the DKG MCP tool surface.",
+      "capabilities": {
+        "localChat": true,
+        "connectFromUi": false
+      },
+      "transport": {
+        "kind": "dkg-local-llm"
+      },
+      "runtime": {
+        "status": "configured",
+        "ready": false,
+        "lastError": null
+      },
+      "metadata": {},
+      "enabled": true,
+      "status": "configured"
+    },
+    {
+      "id": "hermes",
+      "name": "Hermes",
+      "description": "Connect a local Hermes agent through the DKG node.",
+      "capabilities": {
+        "localChat": true,
+        "chatAttachments": true,
+        "connectFromUi": true,
+        "installNode": true,
+        "dkgPrimaryMemory": true,
+        "wmImportPipeline": true,
+        "nodeServedSkill": true
+      },
+      "manifest": {
+        "packageName": "@origintrail-official/dkg-adapter-hermes",
+        "setupEntry": "./setup-entry.mjs"
+      },
+      "transport": {
+        "kind": "hermes-openai"
+      },
+      "runtime": {},
+      "metadata": {},
+      "enabled": false,
+      "status": "disconnected"
+    },
+    {
+      "id": "openclaw",
+      "name": "OpenClaw",
+      "description": "Connect a local OpenClaw agent through the DKG node.",
+      "capabilities": {
+        "localChat": true,
+        "connectFromUi": true,
+        "installNode": true,
+        "dkgPrimaryMemory": false,
+        "wmImportPipeline": false,
+        "nodeServedSkill": true,
+        "chatAttachments": true
+      },
+      "manifest": {
+        "packageName": "@origintrail-official/dkg-adapter-openclaw",
+        "setupEntry": "./setup-entry.mjs"
+      },
+      "transport": {
+        "kind": "openclaw-channel",
+        "bridgeUrl": "http://127.0.0.1:9201",
+        "gatewayUrl": "http://127.0.0.1:18789",
+        "healthUrl": "http://127.0.0.1:9201/health"
+      },
+      "enabled": true,
+      "connectedAt": "2026-08-22T06:17:07.329Z",
+      "updatedAt": "2026-08-27T20:57:31.380Z",
+      "runtime": {
+        "status": "ready",
+        "ready": true,
+        "lastError": null,
+        "updatedAt": "2026-08-27T20:57:31.380Z"
+      },
+      "metadata": {
+        "channelId": "dkg-ui",
+        "registrationMode": "full",
+        "transportMode": "gateway+bridge"
+      },
+      "setupEntry": "./setup-entry.mjs",
+      "status": "ready"
+    },
+    {
+      "id": "prime-agent",
+      "name": "Prime Agent",
+      "description": "Connect a local Prime Intellect Prime Agent through the DKG node.",
+      "capabilities": {
+        "localChat": true,
+        "connectFromUi": true,
+        "installNode": true
+      },
+      "manifest": {
+        "packageName": "@origintrail-official/dkg-adapter-prime-agent",
+        "setupEntry": "./setup-entry.mjs"
+      },
+      "transport": {
+        "kind": "prime-agent-channel"
+      },
+      "runtime": {},
+      "metadata": {},
+      "enabled": false,
+      "status": "disconnected"
+    }
+  ],
+  "connectedLocalAgentIds": [
+    "local-llm",
+    "openclaw"
+  ],
+  "autoUpdate": false,
+  "chain": {
+    "chainId": "base:84532",
+    "configured": true,
+    "rpcEndpointCount": 3,
+    "hubConfigured": true,
+    "rpcFailovers": 263,
+    "rpcExhaustions": 55,
+    "rpcFailoversByClass": {
+      "TIMEOUT": 239,
+      "NETWORK": 21,
+      "SERVER_5XX": 2,
+      "OTHER": 1
+    },
+    "rpcServedByEndpointHost": {
+      "sepolia.base.org": 52838,
+      "base-sepolia-rpc.publicnode.com": 94,
+      "base-sepolia.drpc.org": 28
+    },
+    "rpcFailoversByEndpointHost": {
+      "sepolia.base.org": 181,
+      "base-sepolia-rpc.publicnode.com": 82
+    },
+    "rpcPreferredEstablishments": 3
+  },
+  "updateAvailable": true,
+  "updateChannelTargetMissing": false,
+  "latestCommit": null,
+  "latestVersion": "10.0.24"
+}
+[?2004h$ node src/cli.js audit '{"actor":"hermes","chain":"base","actionType":"swap","params":{"amount":"100","token":"USDC"},"outcome":"success"}'
+[?2004l
+Audit recorded: hermes-audit-1792044466770 (6 quads, 0 redacted)
+[?2004h$ node src/cli.js audit '{"actor":"hermes","chain":"base","actionType":"swap","params":{"apiKey":"sk-DEMO-EXAMPLE-001","amount":"100"},"outcome":"success"}'
+[?2004l
+Audit recorded: hermes-audit-1792044469317 (6 quads, 0 redacted)
+[?2004h$ node src/cli.js recall 'SELECT ?s ?p ?o WHERE { ?s ?p ?o . FILTER(CONTAINS(STR(?o), "sk-DEMO-EXAMPLE-001")) } LIMIT 3'
+[?2004l
 {
   "result": {
     "type": "bindings",
     "bindings": []
   },
-  ...
+  "phases": {
+    "execute": 790,
+    "serverTotal": 793
+  }
 }
-# The parameter value never reaches the graph: only its 16-hex paramsHash is stored.
-
-3) Security boundary, layer 2 - redaction gate on stored literals
-$ node src/cli.js audit '{"actor":"hermes","chain":"base","actionType":"swap","params":{"amount":"100"},"outcome":"failed: rejected key sk-DEMO-OUTCOME-001"}'
-Audit recorded: hermes-audit-1792040505843 (6 quads, 1 redacted)
-$ node src/cli.js recall 'SELECT ?s ?p ?o WHERE { ?s ?p ?o . FILTER(CONTAINS(STR(?s), "urn:dkg:hermes:") && CONTAINS(STR(?o), "REDACTED")) } LIMIT 4'
+[?2004h$ node src/cli.js audit '{"actor":"hermes","chain":"base","actionType":"swap","params":{"amount":"100"},"outcome":"failed: rejected key sk-DEMO-EXAMPLE-001"}'
+[?2004l
+Audit recorded: hermes-audit-1792044474397 (6 quads, 1 redacted)
+[?2004h$ node src/cli.js recall 'SELECT ?s ?p ?o WHERE { ?s ?p ?o . FILTER(CONTAINS(STR(?s), "urn:dkg:hermes:") && CONTAINS(STR(?o), "REDACTED")) } LIMIT 4'
+[?2004l
 {
   "result": {
     "type": "bindings",
@@ -65,32 +2104,34 @@ $ node src/cli.js recall 'SELECT ?s ?p ?o WHERE { ?s ?p ?o . FILTER(CONTAINS(STR
         "p": "http://127.0.0.1:7878/outcome",
         "o": "\"failed: rejected key [REDACTED:api-token]\""
       },
-      ...
+      {
+        "s": "urn:dkg:hermes:action/740350b37f5e98e9",
+        "p": "http://127.0.0.1:7878/outcome",
+        "o": "\"failed: rejected key [REDACTED:api-token]\""
+      },
+      {
+        "s": "urn:dkg:hermes:action/740350b37f5e98e9",
+        "p": "http://127.0.0.1:7878/outcome",
+        "o": "\"failed: rejected key [REDACTED:api-token]\""
+      }
     ]
   },
   "phases": {
-    "execute": 811,
-    "serverTotal": 830
+    "execute": 839,
+    "serverTotal": 840
   }
 }
-
-4) Structured action identity and provenance recall
-$ node src/cli.js recall 'SELECT ?p ?o WHERE { ?s ?p ?o . FILTER(CONTAINS(STR(?s), "740350b37f5e98e9")) } LIMIT 8'
+[?2004h$ KA=$(node src/cli.js audit '{"actor":"hermes","chain":"base","actionType":"bridge","params":{"amount":"25","token":"USDC"},"outcome":"success"}' | tee /tmp/hermes_promote.json | grep -oE 'hermes-audit-[0-9]+' | head -1); echo "KA to promote = $KA"
+[?2004l
+KA to promote = hermes-audit-1792044479540
+[?2004h$ node src/cli.js promote "$KA"
+[?2004l
+Promoted to SWM: hermes-audit-1792044479540
 {
-  "result": {
-    "type": "bindings",
-    "bindings": [
-      { "p": "http://127.0.0.1:7878/timestamp",  "o": "\"1792039721278\"" },
-      { "p": "http://127.0.0.1:7878/actionType", "o": "\"swap\"" },
-      { "p": "http://127.0.0.1:7878/actor",      "o": "\"hermes\"" },
-      { "p": "http://127.0.0.1:7878/outcome",    "o": "\"failed: rejected key [REDACTED:api-token]\"" },
-      { "p": "http://127.0.0.1:7878/chain",      "o": "\"base\"" },
-      { "p": "http://127.0.0.1:7878/paramsHash", "o": "\"740350b37f5e98e9\"" },
-      ...
-    ]
-  },
-  ...
-
-Boundary summary: the command surface is status, audit, recall and promote. There is no signing command
-and no publish command. Promotion to Shared Working Memory is an explicit operator action
-(hermes-dkg promote <ka-name>), never automatic.
+  "swmShared": true,
+  "promotedCount": 6,
+  "sealed": true,
+  "publishReady": true,
+  "shareOperationId": "mv950k56-ofvq0q"
+}
+[?2004h$ 

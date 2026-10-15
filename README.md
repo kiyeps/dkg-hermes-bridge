@@ -73,3 +73,12 @@ The action was recorded as provenance-tagged quads in Working Memory and
 recalled via SPARQL. Note: recall previously failed out-of-the-box because the
 view was sent as `wm` (DKG API rejects it); fixed by mapping shorthand views to
 canonical names (`working-memory` / `shared-working-memory` / `verifiable-memory`).
+
+
+## Recorded walkthrough
+
+`docs/demo.gif` is a recorded walkthrough of this integration against a live local
+DKG V10 node (raw recording: `docs/demo.cast`, asciinema v2 format).
+`docs/demo-transcript.txt` is the exact terminal output of that same run.
+
+![recorded walkthrough](docs/demo.gif)
