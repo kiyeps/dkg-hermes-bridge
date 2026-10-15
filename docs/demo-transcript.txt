@@ -1,39 +1,96 @@
-$ hermes-dkg status
+DKG V10 Round-1 submission: dkg-hermes-bridge
+Live demo transcript, recorded 2026-10-15 (Asia/Jakarta) against a live local DKG V10 node.
+
+Environment
+  node:     IRONCLAW (codename Superagent V7) v10.0.19 - DKG V10 Base Testnet, context graph openclaw-curator
+  revision: 9dad1233de4b586c84a1dda507938f9ece6e87f0
+  The commit that adds this transcript also carries one small fix: the CLI version banner now reads the
+  version from package.json instead of a hard-coded string.
+All output below is verbatim terminal output from this session.
+
+$ node src/cli.js
+Hermes DKG Memory Bridge v0.1.2
+
+Usage:
+  hermes-dkg status                    Check DKG node status
+  hermes-dkg audit <action-json>       Record Hermes action to DKG WM
+  hermes-dkg recall <sparql>           Query prior actions from DKG
+  hermes-dkg promote <ka-name>         Promote KA to SWM (entities:"all")
+  hermes-dkg daemon                    (not yet implemented)
+
+$ node src/cli.js status
 {
   "name": "**IRONCLAW** 🔥  ·  codename **Superagent V7**",
-  "version": "10.0.15",
-  "commit": "244f6943fe7a909a23fe3671c9da088de942f8ed",
-  "commitShort": "244f6943",
-  "buildTime": "2026-09-04T17:07:34.466Z",
+  "version": "10.0.19",
+  "commit": "42d7a9259ec2dd255e3257c95859c07e861d923d",
+  "commitShort": "42d7a925",
+  "buildTime": "2026-09-25T13:14:45.111Z",
   "distTag": "latest",
   "installMode": "npm-local",
+  "peerId": "12D3KooWJzDfRBcUmtAoMHJzkzJ7GVd64KR32sxnyoiE5UxgPeQP",
+  "nodeRole": "edge",
+  "networkConfig": "testnet",
+  "networkId": "7449c543ff04a550b2dafa999fe8ee577a00b212023bb4d4244e8d58a4792c7b",
+  "networkName": "DKG V10 Base Testnet",
+  "storeBackend": "oxigraph-server",
+  ...
 
-$ hermes-dkg audit '{"actor":"0xebDc...395A","chain":"base-sepolia","actionType":"demo.swap","params":{"from":"ETH","to":"WETH","amount":"0.01"},"outcome":"success"}'
-Audit recorded: hermes-audit-1788812918142 (6 quads, 0 redacted)
+1) Record an action into Working Memory
+$ node src/cli.js audit '{"actor":"hermes","chain":"base","actionType":"swap","params":{"amount":"100","token":"USDC"},"outcome":"success"}'
+Audit recorded: hermes-audit-1792039686186 (6 quads, 0 redacted)
 
-$ hermes-dkg recall 'SELECT ?p ?o WHERE { ?s <http://127.0.0.1:7878/actionType> "demo.swap" . ?s ?p ?o . }'
+2) Security boundary, layer 1 - parameters are hashed, never stored raw
+$ node src/cli.js audit '{"actor":"hermes","chain":"base","actionType":"swap","params":{"apiKey":"sk-DEMO-PARAMS-001","amount":"100"},"outcome":"success"}'
+Audit recorded: hermes-audit-1792039687310 (6 quads, 0 redacted)
+$ node src/cli.js recall 'SELECT ?s ?p ?o WHERE { ?s ?p ?o . FILTER(CONTAINS(STR(?o), "sk-DEMO-PARAMS-001")) } LIMIT 3'
+{
+  "result": {
+    "type": "bindings",
+    "bindings": []
+  },
+  ...
+}
+# The parameter value never reaches the graph: only its 16-hex paramsHash is stored.
+
+3) Security boundary, layer 2 - redaction gate on stored literals
+$ node src/cli.js audit '{"actor":"hermes","chain":"base","actionType":"swap","params":{"amount":"100"},"outcome":"failed: rejected key sk-DEMO-OUTCOME-001"}'
+Audit recorded: hermes-audit-1792040505843 (6 quads, 1 redacted)
+$ node src/cli.js recall 'SELECT ?s ?p ?o WHERE { ?s ?p ?o . FILTER(CONTAINS(STR(?s), "urn:dkg:hermes:") && CONTAINS(STR(?o), "REDACTED")) } LIMIT 4'
 {
   "result": {
     "type": "bindings",
     "bindings": [
       {
-        "p": "http://127.0.0.1:7878/timestamp",
-        "o": "\"1788812896357\""
-      },
-      {
-        "p": "http://127.0.0.1:7878/actionType",
-        "o": "\"demo.swap\""
-      },
-      {
-        "p": "http://127.0.0.1:7878/actor",
-        "o": "\"0xebDc3D25487E5B28bbd5eD4d5cF59A9c7c46395A\""
-      },
-      {
+        "s": "urn:dkg:hermes:action/740350b37f5e98e9",
         "p": "http://127.0.0.1:7878/outcome",
-        "o": "\"success\""
+        "o": "\"failed: rejected key [REDACTED:api-token]\""
       },
-      {
-        "p": "http://127.0.0.1:7878/chain",
-        "o": "\"base-sepolia\""
-      },
-      {
+      ...
+    ]
+  },
+  "phases": {
+    "execute": 811,
+    "serverTotal": 830
+  }
+}
+
+4) Structured action identity and provenance recall
+$ node src/cli.js recall 'SELECT ?p ?o WHERE { ?s ?p ?o . FILTER(CONTAINS(STR(?s), "740350b37f5e98e9")) } LIMIT 8'
+{
+  "result": {
+    "type": "bindings",
+    "bindings": [
+      { "p": "http://127.0.0.1:7878/timestamp",  "o": "\"1792039721278\"" },
+      { "p": "http://127.0.0.1:7878/actionType", "o": "\"swap\"" },
+      { "p": "http://127.0.0.1:7878/actor",      "o": "\"hermes\"" },
+      { "p": "http://127.0.0.1:7878/outcome",    "o": "\"failed: rejected key [REDACTED:api-token]\"" },
+      { "p": "http://127.0.0.1:7878/chain",      "o": "\"base\"" },
+      { "p": "http://127.0.0.1:7878/paramsHash", "o": "\"740350b37f5e98e9\"" },
+      ...
+    ]
+  },
+  ...
+
+Boundary summary: the command surface is status, audit, recall and promote. There is no signing command
+and no publish command. Promotion to Shared Working Memory is an explicit operator action
+(hermes-dkg promote <ka-name>), never automatic.

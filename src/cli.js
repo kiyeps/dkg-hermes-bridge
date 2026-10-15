@@ -4,7 +4,9 @@
 import { DKGClient } from './dkg-client.js';
 import { writeAuditTrail } from './audit.js';
 import { recallActions } from './recall.js';
+import { createRequire } from 'node:module';
 
+const pkg = createRequire(import.meta.url)('../package.json');
 const [,, cmd, ...args] = process.argv;
 
 async function main() {
@@ -58,7 +60,7 @@ async function main() {
     }
 
     default:
-      console.log(`Hermes DKG Memory Bridge v0.1.0
+      console.log(`Hermes DKG Memory Bridge v${pkg.version}
 
 Usage:
   hermes-dkg status                    Check DKG node status

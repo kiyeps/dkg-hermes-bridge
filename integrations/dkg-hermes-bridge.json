@@ -42,13 +42,12 @@
   },
   "security": {
     "writeAuthority": [
-      "wm/write",
-      "swm/share"
+      "POST /api/knowledge-assets",
+      "POST /api/knowledge-assets/{name}/wm/write",
+      "POST /api/knowledge-assets/{name}/swm/share"
     ],
-    "networkEgress": [
-      "http://127.0.0.1:9200"
-    ],
-    "notes": "The bridge performs no signing and no publishing; recording is a post-execution step, so the existing Hermes security model (user-funds-only, confirm-before-sign, Spend Governor) is untouched. Secrets are redacted before leaving the process. Egress: local DKG node only. No vm/publish in Round 1 scope."
+    "networkEgress": [],
+    "notes": "The bridge performs no signing and no publishing; recording is a post-execution step, so the existing Hermes security model (user-funds-only, confirm-before-sign, Spend Governor) is untouched. Secrets are redacted before leaving the process. No external network egress: the only host contacted is the DKG node it is installed against (127.0.0.1 by default), which the registry contract does not count as egress. No vm/publish in Round 1 scope."
   },
   "trustTier": "community",
   "promotionPath": "Actions recorded to Working Memory can be promoted to Shared Working Memory only via the explicit 'hermes-dkg promote <ka>' command (swm/share, seals by default). There is no automatic promotion and no daemon; VM publishing is not implemented in Round 1.",
