@@ -3,7 +3,7 @@ Live demo transcript, recorded 2026-10-15 (Asia/Jakarta) against a live local DK
 
 Environment
   node:     IRONCLAW (codename Superagent V7) v10.0.19 - DKG V10 Base Testnet, context graph openclaw-curator
-  revision: 9dad1233de4b586c84a1dda507938f9ece6e87f0
+  revision: 676633ada32d8bf66a4953c98263c7890287e048
   The commit that adds this transcript also carries one small fix: the CLI version banner now reads the
   version from package.json instead of a hard-coded string.
 All output below is verbatim terminal output from this session.
