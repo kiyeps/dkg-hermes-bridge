@@ -14,7 +14,7 @@
     "contact": "https://github.com/kiyeps"
   },
   "repo": "https://github.com/kiyeps/dkg-hermes-bridge",
-  "commit": "676633ada32d8bf66a4953c98263c7890287e048",
+  "commit": "76d0b093c65befe2db40f2261b27c30df26383c4",
   "license": "Apache-2.0",
   "requiresDkgNodeVersion": ">=10.0.0",
   "memoryLayers": [
@@ -52,6 +52,6 @@
   "trustTier": "community",
   "promotionPath": "Actions recorded to Working Memory can be promoted to Shared Working Memory only via the explicit 'hermes-dkg promote <ka>' command (swm/share, seals by default). There is no automatic promotion and no daemon; VM publishing is not implemented in Round 1.",
   "fitNotes": "Hermes-specific action audit trail: each executed action is recorded as a provenance-tagged KA with canonical parameters and a params hash. Designed as a post-execution recorder: an action dispatcher invokes the bridge after execution; the bridge never signs transactions and never publishes. Decision recall via SPARQL lets the agent review prior actions before proposing new ones.",
-  "demo": "https://github.com/kiyeps/dkg-hermes-bridge/blob/main/docs/demo-transcript.txt",
+  "demo": "https://github.com/kiyeps/dkg-hermes-bridge/blob/main/docs/demo.gif",
   "designBrief": "https://github.com/kiyeps/dkg-hermes-bridge/blob/main/docs/DESIGN.md"
 }
